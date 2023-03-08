@@ -5,11 +5,12 @@ let data = {};
 
 //function script
 const save = async ()=>{
+  let date = new Date();
   fs.writeFile("./database.json", JSON.stringify(data), (err)=>{
     if(err){
       console.error(err);
     }else {
-      console.log("updated")
+      console.log(`Updated Database at ${date}`)
       check();
     }
   })

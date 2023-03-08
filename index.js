@@ -15,6 +15,12 @@ const save = async ()=>{
     }
   })
 }
+const backTo = ()=>{
+  data.request = {
+    action : ""
+  }
+  save();
+}
 const check = async ()=>{
   setTimeout(() => {
     fs.readFile("./database.json", "utf-8", (err,res)=>{
@@ -29,11 +35,36 @@ const check = async ()=>{
               action : ""
             }
             save();
+          }else if(data.request.action === "like"){
+            const index = data.post.findIndex(dt => dt.id === data.request.id)
+            if(index > -1&&data.post[index]){
+              if((data.post[index].likes.filter(dts => dts === data.request.data)).length > 0){
+                data.post[index].likes = data.post[index].likes.filter(dts => dts !== data.request.data);
+                backTo()
+              }else{
+                data.post[index].likes.push(`${data.request.data}`);
+                backTo()
+              }
+            }else { backTo(); }
           }else { check(); }
         }else { check(); }
       }
     })
   }, 100);
 }
+
+const timeUpdate = ()=>{
+  setTimeout(() => {
+    const date = new Date();
+    fs.writeFile("./time.json", JSON.stringify({"time": { "now": `${date}` }}), (err)=>{
+      if(err){
+        console.error(err);
+      }else {
+        timeUpdate();
+      }
+    })
+  }, 1000);
+}
+timeUpdate()
 
 check()

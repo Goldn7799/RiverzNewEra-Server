@@ -1,0 +1,10 @@
+{
+  "request": {
+    "id": "",
+    "action": "",
+    "data": {}
+  },
+  "ping": { "status": 200 },
+  "users": {},
+  "post": []
+}

@@ -46,6 +46,19 @@ const check = async ()=>{
                 backTo()
               }
             }else { backTo(); }
+          }else if(data.request.action === "likeComment"){
+            const indexPost = data.post.findIndex(dt => dt.id === data.request.data.postId)
+            const index = data.post[indexPost].comment.findIndex(dts => dts.id === data.request.id)
+            console.log(data.post[indexPost].comment)
+            if(index > -1&&data.post[indexPost]&&data.post[indexPost].comment[index]){
+              if((data.post[indexPost].comment[index].likes.filter(dts => dts === data.request.data.myId)).length > 0){
+                data.post[indexPost].comment[index].likes = data.post[indexPost].comment[index].likes.filter(dts => dts !== data.request.data.myId);
+                backTo()
+              }else{
+                data.post[indexPost].comment[index].likes.push(`${data.request.data.myId}`);
+                backTo()
+              }
+            }else { backTo(); }
           }else { check(); }
         }else { check(); }
       }

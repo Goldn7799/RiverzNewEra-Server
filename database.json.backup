@@ -6,5 +6,5 @@
   },
   "ping": { "status": 200 },
   "users": {},
-  "post": [{"id": "aomeunbystwa", "sender": "90o9ERiIluVJtXhnfO71c2yQ6aE2", "type": "text", "time": "Wed Mar 08 2023 22:31:56", "caption": "Halo Dunia", "data": "", "likes": ["90o9ERiIluVJtXhnfO71c2yQ6aE2"], "comment": [{"sender": "90o9ERiIluVJtXhnfO71c2yQ6aE2", "text": "Apa Kabar", "time": "Wed Mar 08 2023 22:31:56", "likes": ["90o9ERiIluVJtXhnfO71c2yQ6aE2"]}]}]
+  "post": [{"id": "aomeunbystwa", "sender": "90o9ERiIluVJtXhnfO71c2yQ6aE2", "type": "text", "time": "Wed Mar 08 2023 22:31:56", "caption": "Halo Dunia", "data": "", "likes": ["90o9ERiIluVJtXhnfO71c2yQ6aE2"], "comment": [{"id": "oawkoakwo", "sender": "90o9ERiIluVJtXhnfO71c2yQ6aE2", "text": "Apa Kabar", "time": "Wed Mar 08 2023 22:31:56", "likes": ["90o9ERiIluVJtXhnfO71c2yQ6aE2"]}]}]
 }

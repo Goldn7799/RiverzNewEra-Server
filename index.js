@@ -42,9 +42,11 @@ const check = async ()=>{
               if(index > -1&&data.post[index]){
                 if((data.post[index].likes.filter(dts => dts === data.request.data)).length > 0){
                   data.post[index].likes = data.post[index].likes.filter(dts => dts !== data.request.data);
+                  data.users[data.request.data].likes = data.users[data.request.data].likes.filter(dts => dts !== data.request.id);
                   backTo()
                 }else{
                   data.post[index].likes.push(`${data.request.data}`);
+                  data.users[data.request.data].likes.push(`${data.request.id}`);
                   data.users[data.post[index].sender].notify.push({"id": data.request.data, "text": "Liked Your Post", "target": data.post[index].id, "time": `${date}`})
                   backTo()
                 }

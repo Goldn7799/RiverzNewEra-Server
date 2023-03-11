@@ -22,7 +22,7 @@ const backTo = ()=>{
   save();
 }
 const check = async ()=>{
-  setTimeout(() => {
+  setTimeout(async () => {
     try {
       let date = new Date();
       fs.readFile("./database.json", "utf-8", (err,res)=>{
@@ -36,6 +36,8 @@ const check = async ()=>{
               data.request = {
                 action : ""
               }
+              console.log("- New User -");
+              console.log(`Total : ${Object.keys(data.users).length} User's`)
               save();
             }else if(data.request.action === "like"){
               const index = data.post.findIndex(dt => dt.id === data.request.id)
@@ -65,6 +67,39 @@ const check = async ()=>{
                     backTo()
                   }
                 }else { backTo(); }
+              }else { backTo() }
+            }else if(data.request.action === "createPost"&&(!`${data.request.data}`.includes("<")&&!`${data.request.data}`.includes(">"))){
+              if(data.request.id === data.request.data.sender){
+                data.post.push(data.request.data);
+                console.log("- Created Post -");
+                backTo();
+              }else { backTo(); }
+            }else if(data.request.action === "sendComment"&&(!`${data.request.data}`.includes("<")&&!`${data.request.data}`.includes(">"))){
+              if(data.request.id){
+                const postindex = data.post.findIndex(dt => dt.id === data.request.id);
+                if(postindex){
+                  data.post[postindex].comment.push(data.request.data);
+                  console.log("- Send Comment -");
+                  backTo()
+                }else { backTo() }
+              }else { backTo() }
+            }else if(data.request.action === "deleteComment"){
+              if(data.request.id&&data.request.data.commentId){
+                const postIndex = data.post.findIndex(dt => dt.id === data.request.id);
+                if(postIndex){
+                  data.post[postIndex].comment = data.post[postIndex].comment.filter(dts => dts.id !== data.request.data.commentId);
+                  console.log("- Deleted Comment -");
+                  backTo();
+                }else{ backTo() }
+              }else { backTo() }
+            }else if(data.request.action === "deletePost"){
+              if(data.request.id&&data.request.data){
+                const post = data.post.filter(dt => dt.id === data.request.id)[0];
+                if(post&&post.sender === data.request.data){
+                  data.post = data.post.filter(dts => dts.id !== data.request.id);
+                  console.log("- Deleted Post -");
+                  backTo();
+                }else{ backTo() }
               }else { backTo() }
             }else { check(); }
           }else { check(); }

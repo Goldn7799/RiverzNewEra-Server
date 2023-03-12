@@ -101,6 +101,19 @@ const check = async ()=>{
                   backTo();
                 }else{ backTo() }
               }else { backTo() }
+            }else if(data.request.action === "followUser"){
+              if(data.request.id&&data.request.data){
+                if(data.users[data.request.data].follower.includes(data.request.id)){
+                  data.users[data.request.data].follower = data.users[data.request.data].follower.filter(dt => dt !== data.request.id);
+                  data.users[data.request.id].following = data.users[data.request.id].following.filter(dt => dt !== data.request.data);
+                  backTo();
+                }else {
+                  data.users[data.request.data].follower.push(data.request.id);
+                  data.users[data.request.id].following.push(data.request.data);
+                  data.users[data.request.data].notify.push({"id": data.request.id, "text": "Following You", "target": "following", "time": `${date}`});
+                  backTo();
+                }
+              }else { backTo() }
             }else { check(); }
           }else { check(); }
         }
